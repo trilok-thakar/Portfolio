@@ -2,120 +2,599 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Trilok Thakar – Full-Stack Django Developer with 3 years of experience">
-    <meta name="keywords" content="Django Developer, Full Stack Developer, Python, Vue, MySQL">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trilok Thakar | Full-Stack Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-1: #00d4ff;
+            --accent-2: #ff00ff;
+            --accent-3: #00ff88;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-1), transparent);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-2), transparent);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--accent-3), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -100px) scale(1.1); }
+            66% { transform: translate(-100px, 100px) scale(0.9); }
+        }
+
+        /* Grid Pattern */
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, white, var(--accent-1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .glass-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent-1);
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Projects */
+        .project-card {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            align-items: center;
+        }
+
+        .project-image {
+            width: 250px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .project-info h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent-3);
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Why Hire Section */
+        .features-list {
+            list-style: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .features-list li {
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-1);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .features-list li:hover {
+            transform: translateX(10px);
+            background: rgba(0, 212, 255, 0.1);
+            border-left-color: var(--accent-2);
+        }
+
+        /* Contact Section */
+        .contact-info {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            color: var(--text-secondary);
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            padding: 15px 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--card-border);
+            margin-top: 80px;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Light Mode */
+        body.light {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #0a0a0a;
+            --text-secondary: #666666;
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light .gradient-orb {
+            opacity: 0.15;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .project-card {
+                flex-direction: column;
+            }
+
+            .project-image {
+                width: 100%;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="grid-pattern"></div>
 
-    <!-- DARK MODE TOGGLE -->
-    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-toggle" onclick="toggleTheme()">🌙</button>
 
-    <!-- HERO -->
-    <section class="hero reveal">
-        <h1>Hi, I'm <span>Trilok Thakar</span></h1>
-        <p>Full-Stack Developer • Django Specialist • 3+ Years Experience</p>
-        <a href="#contact" class="btn">Hire Me</a>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section reveal">
-        <h2>About Me</h2>
-        <p>
-            I am a Full-Stack Developer with <strong>3 years of professional experience</strong> 
-            building scalable, secure, and high-performance web applications using 
-            Django, JavaScript, Vue, and MySQL.
-        </p>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="section bg-light reveal">
-        <h2>Core Expertise</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Backend</h3>
-                <p>Django, REST APIs, MySQL, Auth, Feature Flags, PDF generation</p>
-            </div>
-            <div class="card">
-                <h3>Frontend</h3>
-                <p>JavaScript, Vue 3, AJAX, Bootstrap, Responsive UI</p>
-            </div>
-            <div class="card">
-                <h3>System Design</h3>
-                <p>LLD, schema design, scalable architecture</p>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1 class="glitch">TRILOK THAKAR</h1>
+            <p class="subtitle">Full-Stack Developer • Django Specialist • 3+ Years Experience</p>
+            <a href="#contact" class="cta-button">Let's Build Something</a>
         </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="section reveal">
-        <h2>Selected Projects</h2>
-
-        <div class="project-card">
-            <img src="cms.png" alt="Dynamic CMS Project">
-            <div>
-                <h3>Dynamic CMS Platform</h3>
-                <p>
-                    Tree-based CMS with drag-and-drop page ordering, dynamic routing,
-                    and admin control built using Django & Vue.
+    <div class="container">
+        <!-- About Section -->
+        <section class="reveal">
+            <h2 class="section-title">About Me</h2>
+            <div class="glass-card">
+                <p style="font-size: 1.3rem; text-align: center; line-height: 2; color: var(--text-secondary);">
+                    I am a <strong style="color: var(--accent-1);">Full-Stack Developer</strong> with <strong style="color: var(--accent-2);">3 years of professional experience</strong> 
+                    building scalable, secure, and high-performance web applications using 
+                    Django, JavaScript, Vue, and MySQL.
                 </p>
             </div>
-        </div>
+        </section>
 
-        <div class="project-card">
-            <img src="calculator.png" alt="Cost Calculator">
-            <div>
-                <h3>Cost Calculator & Invoice System</h3>
-                <p>
-                    Unified cost calculator with GST breakdown, session handling,
-                    and PDF invoice generation.
-                </p>
+        <!-- Skills Section -->
+        <section class="reveal">
+            <h2 class="section-title">Core Expertise</h2>
+            <div class="skills-grid">
+                <div class="glass-card skill-card">
+                    <h3>⚡ Backend</h3>
+                    <p>Django, REST APIs, MySQL, Authentication, Feature Flags, PDF Generation, Session Management</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <h3>🎨 Frontend</h3>
+                    <p>JavaScript, Vue 3, AJAX, Bootstrap, Responsive UI, Modern CSS, Interactive Experiences</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <h3>🏗️ System Design</h3>
+                    <p>Low-Level Design, Database Schema Design, Scalable Architecture, Performance Optimization</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="project-card">
-            <img src="ledger.png" alt="Ledger System">
-            <div>
-                <h3>Ledger & Dashboard System</h3>
-                <p>
-                    Customer ledger tracking, expandable transactions,
-                    role-based dashboards.
-                </p>
+        <!-- Projects Section -->
+        <section class="reveal">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <div class="glass-card project-card">
+                <div class="project-image">CMS</div>
+                <div class="project-info">
+                    <h3>Dynamic CMS Platform</h3>
+                    <p>Tree-based CMS with drag-and-drop page ordering, dynamic routing, and admin control built using Django & Vue.</p>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- WHY HIRE ME -->
-    <section class="section bg-light reveal">
-        <h2>Why Hire Me?</h2>
-        <ul class="list">
-            <li>✔ 3 years real-world development experience</li>
-            <li>✔ Strong Django & backend architecture skills</li>
-            <li>✔ End-to-end product ownership</li>
-            <li>✔ Clean, maintainable & scalable code</li>
-            <li>✔ Interview-ready system design thinking</li>
-        </ul>
-    </section>
+            <div class="glass-card project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, var(--accent-2), var(--accent-3));">CALC</div>
+                <div class="project-info">
+                    <h3>Cost Calculator & Invoice System</h3>
+                    <p>Unified cost calculator with GST breakdown, session handling, and PDF invoice generation.</p>
+                </div>
+            </div>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section contact reveal">
-        <h2>Contact</h2>
-        <p><strong>Email:</strong> trilokthakar@example.com</p>
-        <p><strong>Location:</strong> Ahemdabad, Gujarat, India</p>
+            <div class="glass-card project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, var(--accent-3), var(--accent-1));">LEDGER</div>
+                <div class="project-info">
+                    <h3>Ledger & Dashboard System</h3>
+                    <p>Customer ledger tracking, expandable transactions, role-based dashboards with real-time updates.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="links">
-            <a href="https://github.com/trilok-thakar" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/trilok-thakar" target="_blank">LinkedIn</a>
-        </div>
-    </section>
+        <!-- Why Hire Section -->
+        <section class="reveal">
+            <h2 class="section-title">Why Work With Me</h2>
+            <ul class="features-list">
+                <li>✨ 3 years of real-world development experience</li>
+                <li>🚀 Strong Django & backend architecture skills</li>
+                <li>🎯 End-to-end product ownership and delivery</li>
+                <li>💎 Clean, maintainable & scalable code</li>
+                <li>🧠 Interview-ready system design thinking</li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="reveal">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> trilokthakar@example.com</p>
+                <p><strong>Location:</strong> Ahmedabad, Gujarat, India</p>
+            </div>
+            <div class="contact-links">
+                <a href="https://github.com/trilok-thakar" target="_blank">GitHub →</a>
+                <a href="https://linkedin.com/in/trilok-thakar" target="_blank">LinkedIn →</a>
+            </div>
+        </section>
+    </div>
 
     <footer>
-        © 2026 Trilok Thakar
+        <p>© 2026 Trilok Thakar • Crafted with precision</p>
     </footer>
 
+    <script>
+        let isLight = false;
+
+        function toggleTheme() {
+            isLight = !isLight;
+            document.body.classList.toggle('light');
+            document.querySelector('.dark-toggle').textContent = isLight ? '☀️' : '🌙';
+        }
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        
+        function checkReveal() {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', () => {
+            checkReveal();
+            // Trigger hero animation
+            document.querySelector('.hero .reveal').classList.add('active');
+        });
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+    </script>
 </body>
 </html>
